@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Future<Todo> _loadData() async {
-    Uri url = Uri.parse("http://localhost:3000/todos/1");
+    Uri url = Uri.parse("http://10.0.2.2:3000/todos/1");
     final response = await http.get(url);
     if (response.statusCode == 200) {
       return Todo.fromJson(jsonDecode(response.body));
