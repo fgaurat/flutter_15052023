@@ -44,13 +44,13 @@ class _TodoFormState extends State<TodoForm> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     var todo =
                         Todo(title: titleController.text, completed: false);
-                    dao.insert(todo).then((value) =>
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(content: Text("OK"))));
+                    dao.insert(todo).then((Todo savedTodo) =>
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("OK ${savedTodo.id}"))));
                   }
                 },
                 child: const Text('Submit'),

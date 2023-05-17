@@ -16,14 +16,15 @@ class TodoDAO {
   }
 
 // Define a function that inserts dogs into the database
-  Future<void> insert(Todo todo) async {
+  Future<Todo> insert(Todo todo) async {
     final db = database;
 
-    await db?.insert(
+    todo.id = await db?.insert(
       'todos',
       todo.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    return todo;
   }
 
   Future<List<Todo>> getTodoList() async {
