@@ -46,8 +46,7 @@ class _TodoFormState extends State<TodoForm> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    var todo =
-                        Todo(title: titleController.text, completed: false);
+                    var todo = Todo(title: titleController.text, completed: false);
                     dao.insert(todo).then((Todo savedTodo) =>
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("OK ${savedTodo.id}"))));
