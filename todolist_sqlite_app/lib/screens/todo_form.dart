@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:todolist_sqlite_app/models/todo.dart';
+import 'package:todolist_sqlite_app/models/todo_dao.dart';
 
 class TodoForm extends StatefulWidget {
   const TodoForm({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class _TodoFormState extends State<TodoForm> {
 
   @override
   Widget build(BuildContext context) {
+    final dao = TodoDAO();
+    dao.open();
     final titleController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
@@ -43,10 +46,11 @@ class _TodoFormState extends State<TodoForm> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    var todo = Todo(0, titleController.text, false);
-                    // dao.save(todo);
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text("OK $todo")));
+                    var todo =
+                        Todo(title: titleController.text, completed: false);
+                    dao.insert(todo).then((value) =>
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(content: Text("OK"))));
                   }
                 },
                 child: const Text('Submit'),
